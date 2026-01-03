@@ -25,7 +25,14 @@ def proxy(path):
         )
         
         excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']
-        response_headers = [(name, value) for name, value in resp.raw.headers.items() if name.lower() not in excluded_headers]
+        response_headers = []
+        
+        for name, value in resp.raw.headers.items():
+            if name.lower() not in excluded_headers:
+                if name.lower() == 'location':
+                    value = value.replace(TARGET_API, request.host_url.rstrip('/'))
+                    value = value.replace('http://38.49.212.35:4434', request.host_url.rstrip('/'))
+                response_headers.append((name, value))
         
         return Response(
             resp.content,
