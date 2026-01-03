@@ -3,7 +3,7 @@ import requests
 
 app = Flask(__name__)
 
-TARGET_API = "http://38.49.212.35:4434"
+TARGET_API = "http://72.61.243.207:4434"
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'])
@@ -31,7 +31,7 @@ def proxy(path):
             if name.lower() not in excluded_headers:
                 if name.lower() == 'location':
                     value = value.replace(TARGET_API, request.host_url.rstrip('/'))
-                    value = value.replace('http://38.49.212.35:4434', request.host_url.rstrip('/'))
+                    value = value.replace('http://72.61.243.207:4434', request.host_url.rstrip('/'))
                 response_headers.append((name, value))
         
         return Response(
