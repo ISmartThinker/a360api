@@ -8,7 +8,7 @@ from functools import wraps
 
 app = Flask(__name__)
 
-TARGET_API = "http://72.61.243.207:4434"
+TARGET_API = "http://72.61.243.207:3674"
 
 class ConnectionPool:
     def __init__(self):
@@ -89,7 +89,7 @@ def proxy(path):
             if name_lower not in excluded_headers:
                 if name_lower == 'location':
                     value = value.replace(TARGET_API, request.host_url.rstrip('/'))
-                    value = value.replace('http://72.61.243.207:4434', request.host_url.rstrip('/'))
+                    value = value.replace('http://72.61.243.207:3674', request.host_url.rstrip('/'))
                 response_headers[name] = value
         
         content_type = resp.headers.get('Content-Type', '')
